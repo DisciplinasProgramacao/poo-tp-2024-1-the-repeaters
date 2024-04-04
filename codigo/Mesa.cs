@@ -11,7 +11,7 @@ namespace ConsoleApp1
         #region Atributos
         private int IdMesa { get; set; }
         private int Capacidade { get; set; }
-        public bool Ocupada { get; set; }
+        private bool Ocupada { get; set; }
         #endregion
 
         #region Construtores
