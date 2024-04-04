@@ -9,9 +9,9 @@ namespace ConsoleApp1
     class Mesa
     {
         #region Atributos
-        private int _idMesa { get; set; }
-        private int _capacidade { get; set; }
-        private bool _ocupada { get; set; }
+        private int _idMesa; 
+        private int _capacidade; 
+        private bool _ocupada; 
         #endregion
 
         #region Construtores
