@@ -14,7 +14,7 @@ public class Cliente
     }
 
     // Método para fazer a reserva
-    public Reserva FazerReserva(Mesa capacidade)
+    public Reserva FazerReserva(int capacidade)
     {
         // Criar uma nova reserva
         Reserva reserva = new Reserva(this, capacidade);
