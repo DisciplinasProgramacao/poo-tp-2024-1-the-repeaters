@@ -24,11 +24,7 @@ using System;
         }
 
         /// <summary>
-        /// Método para finalizar a reserva e liberar a mesa.
-        /// </summary>
-        /// <returns>A data e hora de saída da reserva.</returns>
-        /// <summary>
-        /// Método para finalizar a reserva e liberar a mesa.
+        /// Método para finalizar a reserva.
         /// </summary>
         /// <param name="horaSaida">A hora de saída da reserva.</param>
         public void FinalizarReserva(DateTime horaSaida)
@@ -41,9 +37,7 @@ using System;
 
             // Registra a hora de saída
             dataSaida = horaSaida;
-
-            // Libera a mesa
-            mesaAlocada.Disponivel = true;
+            
         }
         /// <summary>
         /// Propriedade somente leitura para obter a data de entrada da reserva.
