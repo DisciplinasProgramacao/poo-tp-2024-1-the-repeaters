@@ -41,7 +41,7 @@ namespace Main___POO
             {
                 Console.WriteLine("Não há mesas disponíveis no momento. Adicionando à fila de espera.");
                 idReserva += 1;
-                Reserva reserva = new Reserva(idReserva, quantPessoas, DateTime.Now, null);
+                Reserva reserva = new Reserva(quantPessoas);
                 AdicionarFilaEspera(reserva);
                 
             }
