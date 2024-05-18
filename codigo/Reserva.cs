@@ -7,7 +7,8 @@ using System;
         private DateTime dataEntrada;
         private DateTime? dataSaida;
         private Mesa mesaAlocada;
-
+        private Cliente cliente;
+        
         /// <summary>
         /// Construtor da classe Reserva.
         /// </summary>
@@ -15,12 +16,24 @@ using System;
         /// <param name="quantPessoa">A quantidade de pessoas na reserva.</param>
         /// <param name="dataEntrada">A data e hora de entrada da reserva.</param>
         /// <param name="mesaAlocada">A mesa alocada para a reserva.</param>
-        public Reserva(int idReserva, int quantPessoa, DateTime dataEntrada, Mesa mesaAlocada)
+        /// <param name="cliente"> Cliente que fez a reserva.</param>
+        public Reserva(Cliente cliente, int idReserva, int quantPessoa, DateTime dataEntrada, Mesa mesaAlocada)
         {
+            this.cliente = cliente;
             this.idReserva = idReserva;
             this.quantPessoa = quantPessoa;
             this.dataEntrada = dataEntrada;
             this.mesaAlocada = mesaAlocada;
+
+            if (mesaAlocada != null)
+            {
+                // A mesa é ocupada ao ser alocada para uma reserva
+                if (!mesaAlocada.estahReserva())
+                {
+                    throw new InvalidOperationException("A mesa já está ocupada.");
+                }
+            }
+            
         }
 
         /// <summary>
@@ -38,6 +51,12 @@ using System;
             // Registra a hora de saída
             dataSaida = horaSaida;
             
+            // Desocupa a mesa se alocada
+            if (mesaAlocada != null)
+            {
+                // Temporariamente desocupa a mesa ocupando-a novamente para simular a desocupação
+                mesaAlocada.estahReserva();
+            }
         }
         /// <summary>
         /// Propriedade somente leitura para obter a data de entrada da reserva.
