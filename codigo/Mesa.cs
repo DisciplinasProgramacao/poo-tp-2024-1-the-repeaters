@@ -4,6 +4,7 @@ class Mesa
     private int _idMesa;
     private int _capacidade;
     private bool _ocupada;
+
     #endregion
 
     #region Construtores
@@ -23,15 +24,15 @@ class Mesa
 
     #region Métodos
     ///<summary>
-    ///Verifica se a mesa está ocupada, e caso não esteja, o cliente que fez a requisição a ocupa.
-    ///Se a mesa já está ocupada, retorna como falso e não é realizada a reserva
+    ///Verifica se a mesa está disponível.
+    ///Se a mesa já está ocupada, retorna como falso
+    ///Alterações: alterei para que ele verifique se a mesa está disponível ao invés de verificar se está ocupada, para não causar confusão.
     ///</summary>
     ///<returns> O boolean com o estado da mesa</returns>
-    public bool estahReserva()
+    public bool estahDisponivel()
     {
         if (_ocupada == false)
         {
-            _ocupada = true;
             return true;
         }
         else
@@ -39,12 +40,47 @@ class Mesa
             return false;
         }
     }
+    /// <summary>
+    /// Se o número de pessoas atende a capacidade da mesa, a ocupa.
+    /// Se já está ocupada, apenas retorna falso para a requisição
+    /// </summary>
+    /// <returns>O estado atual da mesa após a tentativa de ocupação</returns>
+    /// <summary>
+    /// Se o número de pessoas atende a capacidade da mesa, a ocupa.
+    /// Se já está ocupada ou a capacidade é excedida, retorna falso.
+    /// </summary>
+    /// <param name="pessoas">Número de pessoas que querem ocupar a mesa</param>
+    /// <returns>O estado atual da mesa após a tentativa de ocupação</returns>
+    public bool ocuparMesa(int pessoas)
+    {
+        if (!_ocupada && verificarRequisicao(pessoas))
+        {
+            _ocupada = true;
+            return true;
+        }
+         else return false;
+    }
+    /// <summary>
+    /// Verifica se a mesa suporta a capacidade de pessoas que a quer ocupar
+    /// </summary>
+    /// <param name="pessoas">Número de pessoas que quer ocupar a mesa</param>
+    /// <returns></returns>
+    private bool verificarRequisicao(int pessoas)
+    {
+        if (pessoas > _capacidade)
+        {
+            return false;
+        }
+        else 
+        {
+            return true;
+        }
+    }
     #endregion
 
-    #region Getters e Setters
-    public int Capacidade { get { return _capacidade; } set { _capacidade = value; } }
+    #region Getters
+    public int Capacidade { get { return _capacidade; } }
 
-    public int IdMesa { get { return _idMesa; } set { _idMesa = value; } }
+    public int IdMesa { get { return _idMesa; } }
     #endregion
 }
-
