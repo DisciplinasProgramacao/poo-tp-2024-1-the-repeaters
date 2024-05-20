@@ -20,6 +20,15 @@ public class Cliente
     }
 
     /// <summary>
+    /// Sobrescreve o método ToString para retornar uma string que representa o cliente.
+    /// </summary>
+    /// <returns>Uma string que representa o cliente.</returns>
+    public override string ToString()
+    {
+        return $"Cliente ID: {idCliente}, Nome: {nome}";
+    }
+
+    /// <summary>
     /// Faz uma reserva para o cliente em uma mesa com a capacidade especificada.
     /// </summary>
     /// <param name="capacidade">A mesa para a qual a reserva será feita.</param>
