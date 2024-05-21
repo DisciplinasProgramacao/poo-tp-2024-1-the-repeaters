@@ -4,89 +4,78 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Main___POO
+namespace Main_POO
 {
-
     internal class Restaurante
     {
         private List<Mesa> listaDeMesas;
-        private Queue<Reserva> FilaDeEspera;
+        private List<Reserva> listaDeEspera;
 
-        /// <summary>
-        /// Construtor da classe restaurante 
-        /// </summary>
-        /// <param name="listadeMesas">Listas de mesas</param>
-        /// <param name="FiladeEspera">Fila de espera para clientes</param>
-        public Restaurante(List<Mesa> mesas)
+        public Restaurante()
         {
-            listaDeMesas = mesas;
-            FilaDeEspera = new Queue<Reserva>();
+            listaDeMesas = new List<Mesa>
+            {
+                new Mesa(1, 4), new Mesa(2, 4), new Mesa(3, 4), new Mesa(4, 4),
+                new Mesa(5, 6), new Mesa(6, 6), new Mesa(7, 6), new Mesa(8, 6),
+                new Mesa(9, 8), new Mesa(10, 8)
+            };
+            listaDeEspera = new List<Reserva>();
         }
-        /// <summary>
-        /// Metodo para alocar o cliente em uma mesa, caso nao tenha vaga adiciona a fila de espera.
-        /// </summary>
-        /// <param name="quantPessoas">Quantidade de pessoas para alocar a mesa</param>
+
         public void AlocarMesa(int quantPessoas)
         {
+            Mesa mesaDisponivel = LocalizarMesa(quantPessoas);
 
-            Mesa mesaDisponivel = null;
-            int idReserva = 0;
-
-            if (LocalizarMesa(quantPessoas) != null)
+            if (mesaDisponivel != null)
             {
-                mesaDisponivel.estahReserva();
-                Console.WriteLine($"Mesa {mesaDisponivel.IdMesa} alocada para {quantPessoas} pessoas.");
+                mesaDisponivel.ReservarMesa(); 
             }
             else
             {
-                Console.WriteLine("Não há mesas disponíveis no momento. Adicionando à fila de espera.");
-                idReserva += 1;
-                Reserva reserva = new Reserva(quantPessoas);
-                AdicionarFilaEspera(reserva);
-                
+
+                AdicionarListaEspera(new Reserva(quantPessoas));
             }
         }
 
-        /// <summary>
-        /// Metodo para localizar uma mesa com base na capacidade que ela pode alocar. 
-        /// </summary>
-        /// <param name="capacidade">Quantidade de pessoas que a mesa pode alocar</param>
-        /// <returns></returns>
         public Mesa LocalizarMesa(int capacidade)
         {
             foreach (Mesa mesa in listaDeMesas)
             {
-                if (mesa.estahReserva() && mesa.Capacidade >= capacidade)
+                if (!mesa.Ocupada && mesa.Capacidade >= capacidade)
                 {
-                    return mesa; 
+                    return mesa;
                 }
             }
-            return null; 
+            return null;
         }
 
-        /// <summary>
-        /// Metodo para adicionar o cliente a uma fila de espera.
-        /// </summary>
-        /// <param name="reserva">Cria uma reserva para o cleinte</param>
-        public void AdicionarFilaEspera(Reserva reserva)
+        public void AdicionarListaEspera(Reserva reserva)
         {
-            FilaDeEspera.Enqueue(reserva);
-            Console.WriteLine("Cliente adicionado à fila de espera.");
+            listaDeEspera.Add(reserva);
+            Console.WriteLine("Cliente adicionado à lista de espera.");
         }
 
-        /// <summary>
-        /// Metodo para remover o cliente da fila de espera, quando a mesa ficar livre.
-        /// </summary>
-        public void RemoverClienteFila()
+        public void RemoverClienteListaEspera()
         {
-            if (FilaDeEspera.Count > 0)
+            if (listaDeEspera.Count > 0)
             {
-                Reserva reserva = FilaDeEspera.Dequeue();
-                Console.WriteLine("Cliente removido da fila de espera.");
+                Reserva reserva = listaDeEspera[0]; 
+                listaDeEspera.RemoveAt(0); 
+
+                Mesa mesaDisponivel = LocalizarMesa(reserva.QuantPessoa);
+                if (mesaDisponivel != null)
+                {
+                    Console.WriteLine($"Cliente removido da lista de espera e alocado na mesa {mesaDisponivel.IdMesa}.");
+                    mesaDisponivel.ReservarMesa(); 
+                }
+                else
+                {
+                    Console.WriteLine("Não há mesas disponíveis para o cliente removido da lista de espera.");
+                }
             }
             else
             {
-                Console.WriteLine("A fila de espera está vazia.");
+                Console.WriteLine("A lista de espera está vazia.");
             }
         }
     }
