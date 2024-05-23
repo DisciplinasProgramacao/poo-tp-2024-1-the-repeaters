@@ -1,15 +1,14 @@
+using POO3;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Main_POO
+namespace POO3
 {
-    internal class Restaurante
+    public class Restaurante
     {
         private List<Mesa> listaDeMesas;
         private List<Reserva> listaDeEspera;
+        private List<Reserva> reservasAtivas;
 
         public Restaurante()
         {
@@ -20,20 +19,24 @@ namespace Main_POO
                 new Mesa(9, 8), new Mesa(10, 8)
             };
             listaDeEspera = new List<Reserva>();
+            reservasAtivas = new List<Reserva>();
         }
 
-        public void AlocarMesa(int quantPessoas)
+        public void AlocarMesa(Cliente cliente, int quantPessoas)
         {
             Mesa mesaDisponivel = LocalizarMesa(quantPessoas);
+            int idReserva = reservasAtivas.Count + 1;
 
             if (mesaDisponivel != null)
             {
-                mesaDisponivel.ReservarMesa(); 
+                Reserva reserva = new Reserva(cliente, idReserva, quantPessoas, DateTime.Now, mesaDisponivel);
+                reservasAtivas.Add(reserva);
+                Console.WriteLine($"Reserva ID: {reserva.IdReserva} - Mesa alocada para Cliente ID: {cliente.IdCliente}, Nome: {cliente.Nome} na mesa {mesaDisponivel.IdMesa} com {mesaDisponivel.Capacidade} lugares.");
             }
             else
             {
-
-                AdicionarListaEspera(new Reserva(quantPessoas));
+                Reserva reserva = new Reserva(cliente, idReserva, quantPessoas, DateTime.Now, null);
+                AdicionarListaEspera(reserva);
             }
         }
 
@@ -41,7 +44,7 @@ namespace Main_POO
         {
             foreach (Mesa mesa in listaDeMesas)
             {
-                if (!mesa.Ocupada && mesa.Capacidade >= capacidade)
+                if (mesa.EstahDisponivel() && mesa.Capacidade >= capacidade)
                 {
                     return mesa;
                 }
@@ -49,24 +52,25 @@ namespace Main_POO
             return null;
         }
 
-        public void AdicionarListaEspera(Reserva reserva)
+        private void AdicionarListaEspera(Reserva reserva)
         {
             listaDeEspera.Add(reserva);
-            Console.WriteLine("Cliente adicionado à lista de espera.");
+            Console.WriteLine($"Reserva ID: {reserva.IdReserva} - Cliente adicionado à lista de espera.");
         }
 
         public void RemoverClienteListaEspera()
         {
             if (listaDeEspera.Count > 0)
             {
-                Reserva reserva = listaDeEspera[0]; 
-                listaDeEspera.RemoveAt(0); 
+                Reserva reserva = listaDeEspera[0];
+                listaDeEspera.RemoveAt(0);
 
                 Mesa mesaDisponivel = LocalizarMesa(reserva.QuantPessoa);
                 if (mesaDisponivel != null)
                 {
-                    Console.WriteLine($"Cliente removido da lista de espera e alocado na mesa {mesaDisponivel.IdMesa}.");
-                    mesaDisponivel.ReservarMesa(); 
+                    reserva.MesaAlocada = mesaDisponivel;
+                    reservasAtivas.Add(reserva);
+                    Console.WriteLine($"Reserva ID: {reserva.IdReserva} - Cliente removido da lista de espera e alocado na mesa {mesaDisponivel.IdMesa} com {mesaDisponivel.Capacidade} lugares.");
                 }
                 else
                 {
@@ -76,6 +80,31 @@ namespace Main_POO
             else
             {
                 Console.WriteLine("A lista de espera está vazia.");
+            }
+        }
+
+        public Reserva ObterReserva(int idReserva)
+        {
+            Reserva reserva = reservasAtivas.Find(r => r.IdReserva == idReserva);
+            if (reserva == null)
+            {
+                Console.WriteLine("Reserva não encontrada.");
+            }
+            return reserva;
+        }
+
+        public void FinalizarReserva(int idReserva, DateTime horaSaida)
+        {
+            Reserva reserva = ObterReserva(idReserva);
+            if (reserva != null)
+            {
+                reserva.FinalizarReserva(horaSaida);
+                reservasAtivas.Remove(reserva);
+
+                Console.WriteLine($"Reserva ID: {reserva.IdReserva} finalizada. Mesa {reserva.MesaAlocada.IdMesa} agora está disponível.");
+
+                // Tentar alocar o próximo cliente da fila de espera
+                RemoverClienteListaEspera();
             }
         }
     }
