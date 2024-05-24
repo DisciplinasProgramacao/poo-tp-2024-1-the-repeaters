@@ -15,19 +15,19 @@ using System.Collections.Generic;
         public Cardapio()
         {
             TodosItens = new List<Produto>
-        {
-            new Produto("Moqueca de Palmito", 32, 1, 0),
-            new Produto("Falafel Assado", 20, 2, 0),
-            new Produto("Salada Primavera com Macarrão Konjac", 25, 3, 0),
-            new Produto("Escondidinho de Inhame", 18, 4, 0),
-            new Produto("Strogonoff de Cogumelos", 35, 5, 0),
-            new Produto("Caçarola de legumes", 22, 6, 0),
-            new Produto("Água", 3, 7, 0),
-            new Produto("Copo de suco", 7, 8, 0),
-            new Produto("Refrigerante orgânico", 7, 9, 0),
-            new Produto("Cerveja vegana", 9, 10, 0),
-            new Produto("Taça de vinho vegano", 18, 11, 0)
-        };
+            {
+                new Produto("Moqueca de Palmito", 32, 1),
+                new Produto("Falafel Assado", 20, 2),
+                new Produto("Salada Primavera com Macarrão Konjac", 25, 3),
+                new Produto("Escondidinho de Inhame", 18, 4),
+                new Produto("Strogonoff de Cogumelos", 35, 5),
+                new Produto("Caçarola de legumes", 22, 6),
+                new Produto("Água", 3, 7),
+                new Produto("Copo de suco", 7, 8),
+                new Produto("Refrigerante orgânico", 7, 9),
+                new Produto("Cerveja vegana", 9, 10),
+                new Produto("Taça de vinho vegano", 18, 11)
+            };
         }
 
         /// <summary>
