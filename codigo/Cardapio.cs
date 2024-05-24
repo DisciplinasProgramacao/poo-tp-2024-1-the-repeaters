@@ -35,7 +35,7 @@ using System.Collections.Generic;
         /// </summary>
         public void MostrarCardapio()
         {
-            Console.WriteLine("Comidas:");
+            Console.WriteLine("\nComidas:");
             foreach (var item in TodosItens)
             {
                 if (item.Id <= 6)
@@ -58,16 +58,19 @@ using System.Collections.Generic;
         /// </summary>
         /// <param name="idsProdutos">Lista de identificadores dos produtos selecionados.</param>
         /// <param name="pedido">Lista de produtos onde os itens do pedido serão adicionados.</param>
-        public void GerarPedido(List<int> idsProdutos, List<Produto> pedido)
+        public List<Produto> GerarPedido(List<int> idsProdutos, List<Produto> pedido)
         {
+            List<Produto> produtosAdicionados = new List<Produto>();       
             foreach (int id in idsProdutos)
             {
                 Produto produto = TodosItens.Find(item => item.Id == id);
                 if (produto != null)
                 {
                     pedido.Add(produto);
+                    produtosAdicionados.Add(produto);
                 }
-            }
+            }        
+            return produtosAdicionados;
         }
     }
 }
