@@ -1,14 +1,9 @@
-using POO3;
-using System;
-using System.Collections.Generic;
-
-namespace POO3
-{
     public class Restaurante
     {
         private List<Mesa> listaDeMesas;
         private List<Reserva> listaDeEspera;
         private List<Reserva> reservasAtivas;
+        public Cardapio Cardapio { get;private set; }
 
         public Restaurante()
         {
@@ -52,6 +47,11 @@ namespace POO3
             return null;
         }
 
+        public Mesa LocalizarMesaPorId(int idMesa)
+        {
+            return listaDeMesas.Find(m => m.IdMesa == idMesa);
+        }
+
         private void AdicionarListaEspera(Reserva reserva)
         {
             listaDeEspera.Add(reserva);
@@ -83,14 +83,44 @@ namespace POO3
             }
         }
 
+        public void MostrarListaDeEspera()
+        {
+            if (listaDeEspera.Count > 0)
+            {
+                Console.WriteLine("Lista de Espera:");
+                foreach (var reserva in listaDeEspera)
+                {
+                    Console.WriteLine($"Reserva ID: {reserva.IdReserva} - Cliente ID: {reserva.Cliente.IdCliente}, Nome: {reserva.Cliente.Nome}, Pessoas: {reserva.QuantPessoa}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("A lista de espera está vazia.");
+            }
+        }
+
         public Reserva ObterReserva(int idReserva)
         {
-            Reserva reserva = reservasAtivas.Find(r => r.IdReserva == idReserva);
+            Reserva? reserva = reservasAtivas.Find(r => r.IdReserva == idReserva);
             if (reserva == null)
             {
                 Console.WriteLine("Reserva não encontrada.");
             }
             return reserva;
+        }
+
+        public void CancelarReserva(int idReserva)
+        {
+            Reserva reserva = ObterReserva(idReserva);
+            if (reserva != null)
+            {
+                if (reserva.MesaAlocada != null)
+                {
+                    reserva.MesaAlocada.LiberarMesa();
+                }
+                reservasAtivas.Remove(reserva);
+                Console.WriteLine($"Reserva ID: {idReserva} foi cancelada.");
+            }
         }
 
         public void FinalizarReserva(int idReserva, DateTime horaSaida)
@@ -103,9 +133,32 @@ namespace POO3
 
                 Console.WriteLine($"Reserva ID: {reserva.IdReserva} finalizada. Mesa {reserva.MesaAlocada.IdMesa} agora está disponível.");
 
-                // Tentar alocar o próximo cliente da fila de espera
                 RemoverClienteListaEspera();
             }
         }
+        /// <summary>
+        /// Exibe o cardápio, os produtos oferecidos e o preço respectivo.
+        /// </summary>
+        public void VerCardapio()
+        {
+            Cardapio.MostrarCardapio();
+        }
+
+        /// <summary>
+        /// Procura a reserva para incluir um produto no pedido, e se ela existir, gera o pedido
+        /// </summary>
+        /// <param name="idReserva">id da reserva de quem quer o item</param>
+        /// <param name="idsProdutos">produtos pedidos que serão adicionados</param>
+        /// <returns>uma lista de produtos</returns>
+        public List<Produto> IncluirProduto(int idReserva, List<int>idsProdutos)
+        {
+            Reserva reserva = ObterReserva(idReserva);
+
+            if (reserva != null) { return Cardapio.GerarPedido(idsProdutos, reserva.Pedido.Itens); }
+            else 
+            {
+                Console.WriteLine("Reserva não encontrada!"); 
+                return new List<Produto>();
+            }
+        }
     }
-}
