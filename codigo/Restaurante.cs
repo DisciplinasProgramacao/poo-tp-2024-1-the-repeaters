@@ -70,6 +70,7 @@
                 {
                     reserva.MesaAlocada = mesaDisponivel;
                     reservasAtivas.Add(reserva);
+                    mesaDisponivel.OcuparMesa(reserva.QuantPessoa);
                     Console.WriteLine($"Reserva ID: {reserva.IdReserva} - Cliente removido da lista de espera e alocado na mesa {mesaDisponivel.IdMesa} com {mesaDisponivel.Capacidade} lugares.");
                 }
                 else
