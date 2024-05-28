@@ -54,7 +54,7 @@
     /// <returns>True se a mesa suporta a capacidade, false caso contrário</returns>
     private bool verificarRequisicao(int pessoas)
     {
-        if (pessoas >= Capacidade && !Ocupada)
+        if (pessoas >= Capacidade && Ocupada != false)
         {
             return false;
         }
