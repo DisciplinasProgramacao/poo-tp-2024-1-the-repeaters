@@ -16,6 +16,15 @@ namespace ConsoleApp5
         private Cliente cliente;
         private Pedido pedido;
 
+        // Propriedades públicas para acesso aos dados da reserva
+        public Pedido Pedido { get { return pedido; } }
+        public DateTime DataEntrada { get { return dataEntrada; } }
+        public DateTime? DataSaida { get { return dataSaida; } }
+        public int QuantPessoa { get { return quantPessoa; } }
+        public int IdReserva { get { return idReserva; } }
+        public Cliente Cliente { get { return cliente; } }
+        public Mesa MesaAlocada { get { return mesaAlocada; } set { mesaAlocada = value; } }
+
         // <summary>
         /// Cria uma nova instância de Reserva.
         /// </summary>
@@ -111,14 +120,5 @@ namespace ConsoleApp5
                 mesaAlocada.LiberarMesa();
             }
         }
-
-        // Propriedades públicas para acesso aos dados da reserva
-        public Pedido Pedido { get { return pedido; } }
-        public DateTime DataEntrada { get { return dataEntrada; } }
-        public DateTime? DataSaida { get { return dataSaida; } }
-        public int QuantPessoa { get { return quantPessoa; } }
-        public int IdReserva { get { return idReserva; } }
-        public Cliente Cliente { get { return cliente; } }
-        public Mesa MesaAlocada { get { return mesaAlocada; } set { mesaAlocada = value; } }
     }
 }
