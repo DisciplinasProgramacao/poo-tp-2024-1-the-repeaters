@@ -1,4 +1,3 @@
-using POO___Abner;
 using System;
 using System.Collections.Generic;
 
@@ -31,9 +30,33 @@ namespace POO___Abner
         public void FecharPedido(int numeroPessoas)
         {
             pedidoAberto = false;
-            double total = CalcularTotal();
-            Console.WriteLine($"Total: R$ {total:F2}");
-            Console.WriteLine($"Valor por Pessoa: R$ {(total / numeroPessoas):F2}");
+            Console.WriteLine("Valor do Pedido: R$ " + CalcularPedido().ToString("F2"));
+            Console.WriteLine("Valor da Taxa do Serviço: R$ " + CalcularTaxa());
+            Console.WriteLine("Valor do Total: R$ " + CalcularTotal());
+            Console.WriteLine($"Valor por Pessoa: R$ {(CalcularTotal() / numeroPessoas):F2}");
+        }
+
+        /// <summary>
+        /// Calcula o valor total dos itens no pedido.
+        /// </summary>
+        /// <returns>O valor total dos itens no pedido.</returns>
+        public double CalcularPedido()
+        {
+            double total = 0;
+            foreach (var item in itens)
+            {
+                total += item.Valor;
+            }
+            return total;
+        }
+
+        /// <summary>
+        /// Calcula a taxa de serviço do pedido.
+        /// </summary>
+        /// <returns>O valor da taxa de serviço.</returns>
+        public double CalcularTaxa()
+        {
+            return CalcularPedido() * taxaServico;
         }
 
         /// <summary>
@@ -42,13 +65,7 @@ namespace POO___Abner
         /// <returns>O valor total do pedido.</returns>
         private double CalcularTotal()
         {
-            double total = 0;
-            foreach (var item in itens)
-            {
-                total += item.Valor;
-            }
-            total += total * taxaServico;
-            return total;
+            return CalcularPedido() + CalcularTaxa();
         }
 
         /// <summary>
