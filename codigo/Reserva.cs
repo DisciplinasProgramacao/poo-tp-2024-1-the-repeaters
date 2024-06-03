@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApp5
+namespace POO_Trabalho
 {
     /// <summary>
     /// Representa uma reserva de mesa em um restaurante.
@@ -16,7 +19,6 @@ namespace ConsoleApp5
         private Cliente cliente;
         private Pedido pedido;
 
-        // Propriedades públicas para acesso aos dados da reserva
         public Pedido Pedido { get { return pedido; } }
         public DateTime DataEntrada { get { return dataEntrada; } }
         public DateTime? DataSaida { get { return dataSaida; } }
@@ -25,14 +27,15 @@ namespace ConsoleApp5
         public Cliente Cliente { get { return cliente; } }
         public Mesa MesaAlocada { get { return mesaAlocada; } set { mesaAlocada = value; } }
 
-        // <summary>
-        /// Cria uma nova instância de Reserva.
+        /// <summary>
+        /// Inicializa uma nova instância da classe Reserva.
         /// </summary>
         /// <param name="cliente">O cliente associado à reserva.</param>
-        /// <param name="idReserva">O identificador único da reserva.</param>
+        /// <param name="idReserva">O ID da reserva.</param>
         /// <param name="quantPessoa">A quantidade de pessoas na reserva.</param>
-        /// <param name="dataEntrada">A data e hora de entrada da reserva.</param>
-        /// <param name="mesaAlocada">A mesa alocada para a reserva (pode ser nulo se não houver mesa disponível).</param>
+        /// <param name="dataEntrada">A data de entrada da reserva.</param>
+        /// <param name="mesaAlocada">A mesa alocada para a reserva.</param>
+        /// <exception cref="InvalidOperationException">Lançada se a mesa já está ocupada ou a capacidade é excedida.</exception>
         public Reserva(Cliente cliente, int idReserva, int quantPessoa, DateTime dataEntrada, Mesa mesaAlocada)
         {
             this.cliente = cliente;
@@ -59,24 +62,8 @@ namespace ConsoleApp5
         {
             if (pedido.PedidoAberto)
             {
-                pedido.AdicionarItem(produto);
-                Console.WriteLine($"Produto '{produto.Nome}' adicionado ao pedido da reserva ID: {idReserva}.");
-            }
-            else
-            {
-                Console.WriteLine("A reserva está fechada. Não é possível adicionar itens ao pedido.");
-            }
-        }
-
-        /// <summary>
-        /// Calcula o valor total da conta com base nos itens do pedido.
-        /// </summary>
-        public void FecharConta()
-        {
-            if (!pedido.PedidoAberto)
-            {
-                decimal totalConta = pedido.CalcularTotal();
-                Console.WriteLine($"Total da conta para {cliente.Nome}: R$ {totalConta:F2}");
+                pedido.addItem(produto);
+                Console.WriteLine($"Produto '{produto.Nome}' adicionado ao pedido.");
             }
             else
             {
@@ -85,15 +72,34 @@ namespace ConsoleApp5
         }
 
         /// <summary>
-        /// Calcula e exibe o valor por pessoa para o cliente.
+        /// Inclui produtos ao pedido da reserva com base nos IDs dos produtos.
+        /// </summary>
+        /// <param name="idsProdutos">Lista de IDs dos produtos.</param>
+        /// <param name="cardapio">O cardápio para consultar os produtos.</param>
+        public void IncluirPedido(List<int> idsProdutos, Cardapio cardapio)
+        {
+            if (this.pedido == null)
+            {
+                this.pedido = new Pedido();
+            }
+
+            if (this.pedido.Itens == null)
+            {
+                this.pedido.Itens = new List<Produto>();
+            }
+
+            cardapio.GerarPedido(idsProdutos, this.pedido.Itens);
+        }
+
+        /// <summary>
+        /// Exibe o valor total por cliente na reserva.
         /// </summary>
         public void ExibirValorPorCliente()
         {
             if (!pedido.PedidoAberto)
             {
                 int numeroPessoas = quantPessoa;
-                decimal valorPorPessoa = pedido.CalcularTotal() / numeroPessoas;
-                Console.WriteLine($"Valor por pessoa para {cliente.Nome}: R$ {valorPorPessoa:F2}");
+                pedido.FecharPedido(numeroPessoas);
             }
             else
             {
@@ -102,10 +108,10 @@ namespace ConsoleApp5
         }
 
         /// <summary>
-        /// Marca a reserva como finalizada, definindo a hora de saída.
-        /// Libera a mesa alocada (se houver).
+        /// Finaliza a reserva e libera a mesa associada.
         /// </summary>
-        /// <param name="horaSaida">A hora de saída da reserva.</param>
+        /// <param name="horaSaida">A data e hora de saída.</param>
+        /// <exception cref="InvalidOperationException">Lançada se a reserva já foi finalizada.</exception>
         public void FinalizarReserva(DateTime horaSaida)
         {
             if (dataSaida.HasValue)
