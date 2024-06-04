@@ -1,7 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Work_POO
 {
-    internal class Produto
+    public class Produto
     {
         public string Nome { get; private set; }
         public double Valor { get; private set; }
@@ -21,3 +26,4 @@ using System.Collections.Generic;
         }
     }
 }
+
