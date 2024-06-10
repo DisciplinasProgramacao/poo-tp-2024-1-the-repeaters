@@ -33,25 +33,30 @@ using System.Collections.Generic;
         /// <summary>
         /// Exibe o cardápio completo com todas as comidas e bebidas disponíveis.
         /// </summary>
-        public void MostrarCardapio()
-        {
-            Console.WriteLine("\nComidas:");
-            foreach (var item in TodosItens)
-            {
-                if (item.Id <= 6)
-                {
-                    Console.WriteLine($"{item.Id}. {item.Nome} – R$ {item.Valor}");
-                }
-            }
-            Console.WriteLine("\nBebidas:");
-            foreach (var item in TodosItens)
-            {
-                if (item.Id > 6)
-                {
-                    Console.WriteLine($"{item.Id}. {item.Nome} – R$ {item.Valor}");
-                }
-            }
-        }
+         public string MostrarCardapio()
+         {
+             StringBuilder sb = new StringBuilder();
+        
+             sb.AppendLine("Comidas:");
+             foreach (var item in TodosItens)
+             {
+                 if (item.Id <= 6)
+                 {
+                     sb.AppendLine($"{item.Id}. {item.Nome} – R$ {item.Valor}");
+                 }
+             }
+        
+             sb.AppendLine("\nBebidas:");
+             foreach (var item in TodosItens)
+             {
+                 if (item.Id > 6)
+                 {
+                     sb.AppendLine($"{item.Id}. {item.Nome} – R$ {item.Valor}");
+                 }
+             }
+        
+             return sb.ToString();
+         }
       
         /// <summary>
         /// Gera um pedido baseado na lista de itens selecionados e adiciona os produtos na lista fornecida.
