@@ -4,44 +4,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp5
+namespace Work_POO
 {
+    /// <summary>
+    /// Representa um cliente no sistema.
+    /// </summary>
     public class Cliente
     {
-        private int idCliente; // Identificador único do cliente
-        private string nome; // Nome do cliente
+        #region Atributos estáticos
+        private static int proximoIdCliente = 1; // Usado para gerar IDs automáticos para os clientes.
+        #endregion
 
+        #region Atributos de instância
+        private int idCliente; // ID único do cliente.
+        private string nome; // Nome do cliente.
+        #endregion
+
+        #region Construtores
         /// <summary>
-        /// Cria uma instância de Cliente com o ID e nome fornecidos.
+        /// Inicializa uma nova instância da classe Cliente com um nome específico.
         /// </summary>
-        /// <param name="idCliente">O identificador único do cliente.</param>
         /// <param name="nome">O nome do cliente.</param>
-        public Cliente(int idCliente, string nome)
+        public Cliente(string nome)
         {
-            this.idCliente = idCliente;
+            this.idCliente = proximoIdCliente++; // Gera automaticamente o ID do cliente.
             this.nome = nome;
         }
+        #endregion
 
+        #region Métodos sobrescritos
         /// <summary>
-        /// Sobrescreve o método ToString para retornar uma string que representa o cliente.
+        /// Retorna uma string que representa o cliente.
         /// </summary>
-        /// <returns>Uma string que representa o cliente.</returns>
+        /// <returns>Uma string que representa o cliente com seu ID e nome.</returns>
         public override string ToString()
         {
             return $"Cliente ID: {idCliente}, Nome: {nome}";
         }
+        #endregion
+
+        #region Propriedades
+        /// <summary>
+        /// Obtém o ID do cliente.
+        /// </summary>
+        public int IdCliente { get { return idCliente; } }
 
         /// <summary>
-        /// Faz uma reserva para o cliente em uma mesa com a capacidade especificada.
+        /// Obtém o nome do cliente.
         /// </summary>
-        /// <param name="capacidade">A mesa para a qual a reserva será feita.</param>
-        /// <returns>A reserva associada ao cliente e à mesa.</returns>
-        public Reserva FazerReserva(int capacidade)
-        {
-            // Crie uma nova reserva associada ao cliente e à capacidade da mesa
-            Reserva reserva = new Reserva(this, capacidade);
-            return reserva;
-        }
-        public int IdCliente { get { return IdCliente; } }
+        public string Nome { get { return nome; } }
+        #endregion
     }
 }
