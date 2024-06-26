@@ -26,7 +26,7 @@ namespace VegTable
         {
             TodosItens = new List<Produto>
             {
-                new Produto("Pão de queijo", 5, 1),
+                new Produto("Não de queijo", 5, 1),
                 new Produto("Bolinha de cogumelo", 7, 2),
                 new Produto("Rissole de palmito", 7, 3),
                 new Produto("Coxinha de carne de jaca", 8, 4),
