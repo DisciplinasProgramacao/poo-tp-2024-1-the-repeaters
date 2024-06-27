@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,5 +46,10 @@ namespace VegTable
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return $"{Id}. {Nome} - R${Valor:F2} ";
+        }
     }
 }
