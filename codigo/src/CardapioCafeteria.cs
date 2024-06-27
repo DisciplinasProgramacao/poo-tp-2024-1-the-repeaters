@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,7 +56,7 @@ namespace VegTable
             {
                 if (item.Id <= 7)
                 {
-                    sb.AppendLine($"{item.Id}. {item.Nome} – R$ {item.Valor}");
+                    sb.AppendLine($"{item.ToString()}");
                 }
             }
 
@@ -65,7 +65,7 @@ namespace VegTable
             {
                 if (item.Id > 7)
                 {
-                    sb.AppendLine($"{item.Id}. {item.Nome} – R$ {item.Valor}");
+                    sb.AppendLine($"{item.ToString()}");
                 }
             }
 
