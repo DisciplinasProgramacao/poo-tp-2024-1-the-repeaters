@@ -1,0 +1,240 @@
+<Project>
+  <Name>UMLs</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Trabalho</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Mesa</Name>
+        <Access>Public</Access>
+        <Location left="1045" top="738" />
+        <Size width="227" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public int IdMesa</Member>
+        <Member type="Field">public int Capacidade</Member>
+        <Member type="Field">public bool Ocupada</Member>
+        <Member type="Method">public bool EstahDisponivel()</Member>
+        <Member type="Method">public bool OcuparMesa(int pessoas)</Member>
+        <Member type="Method">private bool verificarRequisicao(int pessoas)</Member>
+        <Member type="Method">public void LiberarMesa()</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Cliente</Name>
+        <Access>Public</Access>
+        <Location left="614" top="656" />
+        <Size width="227" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">static int proximoIdCliente = 1</Member>
+        <Member type="Field">private int idCliente</Member>
+        <Member type="Field">private String nome</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Reserva</Name>
+        <Access>Public</Access>
+        <Location left="108" top="608" />
+        <Size width="414" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">int idReserva</Member>
+        <Member type="Field">int quantPessoa</Member>
+        <Member type="Field">DataTime dataEntrada</Member>
+        <Member type="Field">DataTime dataSaida</Member>
+        <Member type="Field">Mesa mesaAlocada</Member>
+        <Member type="Field">private Cliente cliente</Member>
+        <Member type="Field">private Pedido pedido</Member>
+        <Member type="Method">public void FinalizarReserva(DateTime horaSaida)</Member>
+        <Member type="Method">public List&lt;Produto&gt; ReceberPedido(List&lt;Produto&gt; produto)</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Restaurante</Name>
+        <Access>Public</Access>
+        <Location left="979" top="364" />
+        <Size width="377" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Mesa&gt; listaDeMesas</Member>
+        <Member type="Field">private List&lt;Reserva&gt; listaDeEspera</Member>
+        <Member type="Field">private List&lt;Reserva&gt; reservasAtivas</Member>
+        <Member type="Method">public string FazerReserva(string nomeReserva, int numPessoas)</Member>
+        <Member type="Method">public override void FazerPedido(string idReserva, string ids)</Member>
+        <Member type="Method">public Reserva FinalizarReserva(string idReserva)</Member>
+        <Member type="Method">public Mesa LocalizarMesa(int capacidade)</Member>
+        <Member type="Method">private void AdicionarListaEspera(Reserva reserva)</Member>
+        <Member type="Method">public void RemoverClienteListaEspera()</Member>
+        <Member type="Method">public string MostrarListaDeEspera()</Member>
+        <Member type="Method">public Reserva ObterReserva(int idReserva)</Member>
+        <Member type="Method">public string MostrarClientesNasMesas()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Pedido</Name>
+        <Access>Public</Access>
+        <Location left="163" top="918" />
+        <Size width="262" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Produto&gt; itens = new List&lt;Produto&gt;()</Member>
+        <Member type="Field">static double taxaServico = 0.10</Member>
+        <Member type="Field">public bool pedidoAberto = true</Member>
+        <Member type="Method">public double CalcularPedido()</Member>
+        <Member type="Method">public int addItem(Produto produto)</Member>
+        <Member type="Method">public void FecharPedido(int numeroPessoas)</Member>
+        <Member type="Method">public double CalcularTaxa()</Member>
+        <Member type="Method">public double CalcularTotal()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Produto</Name>
+        <Access>Public</Access>
+        <Location left="495" top="947" />
+        <Size width="162" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">String Nome</Member>
+        <Member type="Field">Double Valor</Member>
+        <Member type="Field">int Id</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ICardapio</Name>
+        <Access>Public</Access>
+        <Location left="223" top="39" />
+        <Size width="406" height="100" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">string MostrarCardapio()</Member>
+        <Member type="Method">List&lt;Produto&gt; GerarPedido(List&lt;int&gt; idsProdutos, List&lt;Produto&gt; pedido)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>CardapioCafeteria</Name>
+        <Access>Public</Access>
+        <Location left="10" top="317" />
+        <Size width="406" height="137" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Produto&gt; TodosItens</Member>
+        <Member type="Method">public string MostrarCardapio()</Member>
+        <Member type="Method">public List&lt;Produto&gt; GerarPedido(List&lt;int&gt; idsProdutos, List&lt;Produto&gt; pedido)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CardapioRestaurante</Name>
+        <Access>Public</Access>
+        <Location left="461" top="317" />
+        <Size width="403" height="137" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;Produto&gt; TodosItens</Member>
+        <Member type="Method">public string MostrarCardapio()</Member>
+        <Member type="Method">public List&lt;Produto&gt; GerarPedido(List&lt;int&gt; idsProdutos, List&lt;Produto&gt; pedido)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Cafeteria</Name>
+        <Access>Public</Access>
+        <Location left="1410" top="364" />
+        <Size width="294" height="116" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public override void FazerPedido(string idCliente, string ids)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Estabelecimento</Name>
+        <Access>Public</Access>
+        <Location left="1270" top="35" />
+        <Size width="283" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected List&lt;Cliente&gt; clientesCadastrados</Member>
+        <Member type="Field">public ICardapio Cardapio</Member>
+        <Member type="Method">public Cliente CadastrarCliente(string nome)</Member>
+        <Member type="Method">public Cliente LocalizarCliente(string nome)</Member>
+        <Member type="Method">public Cliente LocalizarClientePorId(int idCliente)</Member>
+        <Member type="Method">public abstract void FazerPedido(string idReserva, string ids)</Member>
+        <Member type="Method">public string VerCardapio()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="7" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="8" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="3" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="9" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1553</X>
+          <Y>329</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1411</X>
+          <Y>287</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="10" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="5">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="2" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="3" second="0">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="1" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="3" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>804</X>
+          <Y>544</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>316</X>
+          <Y>579</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
