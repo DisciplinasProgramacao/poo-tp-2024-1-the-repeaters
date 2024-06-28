@@ -102,6 +102,12 @@ namespace VegTable
                 mesaAlocada.LiberarMesa();
             }
         }
+
+        /// <summary>
+        /// Recebe um pedido e adiciona os produtos ao pedido atual, se estiver aberto.
+        /// </summary>
+        /// <param name="produto">Lista de produtos a serem adicionados ao pedido.</param>
+        /// <returns>Lista de produtos adicionados ao pedido.</returns>
         public List<Produto> ReceberPedido(List<Produto> produto)
         {
             if (pedido.PedidoAberto)
