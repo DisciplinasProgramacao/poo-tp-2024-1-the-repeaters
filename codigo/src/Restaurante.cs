@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -120,8 +120,7 @@ namespace VegTable
         /// Finaliza uma reserva específica.
         /// </summary>
         /// <param name="idReserva">ID da reserva.</param>
-        /// <param name="numPessoasFinalizar">Número de pessoas para calcular o valor por pessoa.</param>
-        /// <exception cref="Exception">Lança uma exceção se o ID da reserva ou o número de pessoas forem inválidos, ou se a reserva não for encontrada.</exception>
+        /// <exception cref="Exception">Lança uma exceção se o ID da reserva for inválido, ou se a reserva não for encontrada.</exception>
         public Reserva FinalizarReserva(string idReserva)
         {
             if (string.IsNullOrEmpty(idReserva))
