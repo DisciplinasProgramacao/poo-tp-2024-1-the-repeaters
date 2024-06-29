@@ -1,0 +1,14 @@
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\bin\Debug\VegTable.exe.config
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\bin\Debug\VegTable.exe
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\bin\Debug\VegTable.pdb
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\obj\Debug\VegTable.csproj.AssemblyReference.cache
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\obj\Debug\VegTable.csproj.CoreCompileInputs.cache
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\obj\Debug\VegTable.exe
+C:\Users\Malu Freitas\Desktop\trbalho final\VegTable\VegTable\obj\Debug\VegTable.pdb
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\bin\Debug\VegTable.exe.config
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\bin\Debug\VegTable.exe
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\bin\Debug\VegTable.pdb
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\obj\Debug\VegTable.csproj.AssemblyReference.cache
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\obj\Debug\VegTable.csproj.CoreCompileInputs.cache
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\obj\Debug\VegTable.exe
+E:\dowload\Sprint-2-main\Sprint-2-main\codigo\VegTable\obj\Debug\VegTable.pdb

@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VegTable
+{
+    /// <summary>
+    /// Representa o cardápio da cafeteria.
+    /// </summary>
+    public class CardapioCafeteria : ICardapio
+    {
+        #region Atributos
+
+        private List<Produto> TodosItens;
+
+        #endregion
+
+        #region Construtores
+
+        /// <summary>
+        /// Inicializa uma nova instância da classe <see cref="CardapioCafeteria"/> com itens predefinidos.
+        /// </summary>
+        public CardapioCafeteria()
+        {
+            TodosItens = new List<Produto>
+            {
+                new Produto("Não de queijo", 5, 1),
+                new Produto("Bolinha de cogumelo", 7, 2),
+                new Produto("Rissole de palmito", 7, 3),
+                new Produto("Coxinha de carne de jaca", 8, 4),
+                new Produto("Fatia de queijo de caju", 9, 5),
+                new Produto("Biscoito amanteigado", 3, 6),
+                new Produto("Cheesecake de frutas vermelhas", 15, 7),
+                new Produto("Água", 3, 8),
+                new Produto("Copo de suco", 7, 9),
+                new Produto("Café espresso orgânico", 6, 10)
+            };
+        }
+
+        #endregion
+
+        #region Métodos
+
+        /// <summary>
+        /// Exibe o cardápio da cafeteria.
+        /// </summary>
+        /// <returns>Uma string representando o cardápio.</returns>
+        public string MostrarCardapio()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("Comidas:");
+            foreach (var item in TodosItens)
+            {
+                if (item.Id <= 7)
+                {
+                    sb.AppendLine($"{item.ToString()}");
+                }
+            }
+
+            sb.AppendLine("\nBebidas:");
+            foreach (var item in TodosItens)
+            {
+                if (item.Id > 7)
+                {
+                    sb.AppendLine($"{item.ToString()}");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Gera um pedido com base nos IDs dos produtos selecionados.
+        /// </summary>
+        /// <param name="idsProdutos">Lista de IDs dos produtos selecionados.</param>
+        /// <param name="pedido">Lista de produtos que compõem o pedido.</param>
+        /// <returns>Lista de produtos que compõem o pedido atualizado.</returns>
+        public List<Produto> GerarPedido(List<int> idsProdutos, List<Produto> pedido)
+        {
+            List<Produto> produtosAdicionados = new List<Produto>();
+            foreach (int id in idsProdutos)
+            {
+                Produto produto = TodosItens.Find(item => item.Id == id);
+                if (produto != null)
+                {
+                    pedido.Add(produto);
+                    produtosAdicionados.Add(produto);
+                }
+            }
+            return produtosAdicionados;
+        }
+
+        #endregion
+    }
+}
